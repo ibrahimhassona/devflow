@@ -1,16 +1,18 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import localFont from 'next/font/local'
+import localFont from "next/font/local";
+import { ThemeProvider } from "next-themes";
+import Navbar from "@/components/navigation/navbar/Navbar";
 const inter = localFont({
-  src:"./fonts/Inter-VF.ttf",
-  variable:"--font-inter",
-  weight:"100 200 300 400 500 600 700 800 900"
-}) 
+  src: "./fonts/Inter-VF.ttf",
+  variable: "--font-inter",
+  weight: "100 200 300 400 500 600 700 800 900",
+});
 const spaceGrotesk = localFont({
-  src:"./fonts/SpaceGrotesk-VF.ttf",
-  variable:"--font-space-grotesk",
-  weight:" 300 400 500 600 700 800 900"
-})
+  src: "./fonts/SpaceGrotesk-VF.ttf",
+  variable: "--font-space-grotesk",
+  weight: " 300 400 500 600 700 800 900",
+});
 
 export const metadata: Metadata = {
   title: "Dev Overflow",
@@ -27,11 +29,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${inter.variable} ${spaceGrotesk.variable}  antialiased`}
       >
-        {children}
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+          <Navbar />
+          {children}
+          </ThemeProvider>
       </body>
     </html>
   );
